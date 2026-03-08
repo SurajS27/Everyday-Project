@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: zero-trust-mesh
+  labels:
+    # This label tells Istio to automatically inject the Envoy proxy sidecar
+    # into any pods deployed in this namespace.
+    istio-injection: enabled

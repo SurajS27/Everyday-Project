@@ -1,0 +1,36 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: order-service-dr
+  namespace: zero-trust-mesh
+spec:
+  host: order-service
+  # Define the subsets based on K8s labels for the Canary deployment
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: order-service-vs
+  namespace: zero-trust-mesh
+spec:
+  hosts:
+  - order-service
+  http:
+  - route:
+    # 90% of traffic routes to v1
+    - destination:
+        host: order-service
+        subset: v1
+      weight: 90
+    # 10% of traffic routes to the v2 Canary
+    - destination:
+        host: order-service
+        subset: v2
+      weight: 10

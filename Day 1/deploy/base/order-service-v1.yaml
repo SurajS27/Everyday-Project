@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-service-v1
+  namespace: zero-trust-mesh
+  labels:
+    app: order-service
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: order-service
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: order-service
+        version: v1
+    spec:
+      containers:
+      - name: order-service
+        image: your-registry/order-service:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: APP_VERSION
+          value: "v1"
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+  namespace: zero-trust-mesh
+spec:
+  selector:
+    # Notice we select ONLY by app, not version. Istio will handle the routing logic.
+    app: order-service
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080

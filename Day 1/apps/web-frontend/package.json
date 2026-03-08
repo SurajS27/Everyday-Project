@@ -1,0 +1,13 @@
+  {
+  "name": "web-frontend",
+  "version": "1.0.0",
+  "description": "Tier 1 Web Frontend for Zero-Trust Mesh",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.2",
+    "express": "^4.18.2"
+  }
+}

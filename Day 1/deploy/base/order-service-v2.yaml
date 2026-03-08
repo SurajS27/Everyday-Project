@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-service-v2
+  namespace: zero-trust-mesh
+  labels:
+    app: order-service
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-service
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: order-service
+        version: v2
+    spec:
+      containers:
+      - name: order-service
+        image: your-registry/order-service:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: APP_VERSION
+          value: "v2"
+        ports:
+        - containerPort: 8080
+# No new service is needed. The existing order-service Service covers this app label.

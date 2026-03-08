@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: inventory-service-dr
+  namespace: zero-trust-mesh
+spec:
+  host: inventory-service
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        maxConnections: 100
+      http:
+        http1MaxPendingRequests: 10
+        maxRequestsPerConnection: 10
+    outlierDetection:
+      # If the Inventory service returns three consecutive 5xx errors...
+      consecutive5xxErrors: 3
+      # ...wait 10 seconds between scanning evaluations...
+      interval: 10s
+      # ...and eject the failing pod from the load balancing pool for 30 seconds.
+      baseEjectionTime: 30s
+      maxEjectionPercent: 100

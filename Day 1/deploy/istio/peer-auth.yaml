@@ -1,0 +1,11 @@
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default-strict-mtls
+  namespace: zero-trust-mesh
+spec:
+  # This enforces Zero-Trust. ALL pod-to-pod communication in this namespace
+  # MUST be mutually authenticated and encrypted via Istio's Citadel certificates.
+  # Unencrypted plaintext traffic will be immediately rejected.
+  mtls:
+    mode: STRICT

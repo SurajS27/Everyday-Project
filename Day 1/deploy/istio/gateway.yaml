@@ -1,0 +1,36 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: web-frontend-gateway
+  namespace: zero-trust-mesh
+spec:
+  selector:
+    # Hooks into the default Istio ingress controller
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: web-frontend-vs
+  namespace: zero-trust-mesh
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - web-frontend-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: web-frontend.zero-trust-mesh.svc.cluster.local
+        port:
+          number: 80
