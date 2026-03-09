@@ -1,4 +1,4 @@
-Zero-Trust Multi-Service Mesh Demo
+# Zero-Trust Multi-Service Mesh Demo
 
 This project demonstrates a fully functional, 3-tier microservice architecture deployed on Kubernetes using Istio as a Service Mesh. It implements enterprise-grade traffic management, zero-trust security, and a complete observability stack.
 
