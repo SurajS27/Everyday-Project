@@ -8,7 +8,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/SurajS27/Everyday-Project
+    repoURL: https://github.com/SurajS27/Everyday-Project/tree/main/Day%202
     targetRevision: HEAD
     path: apps/nginx
 
