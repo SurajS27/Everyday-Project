@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: my-self-healing-app-dev
+  name: promtail
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/SurajS27/Everyday-Project
     targetRevision: HEAD
-    path: apps/my-self-healing-app/overlays/dev
+    path: infrastructure/logging/promtail
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: logging
   syncPolicy:
     automated:
       prune: true
